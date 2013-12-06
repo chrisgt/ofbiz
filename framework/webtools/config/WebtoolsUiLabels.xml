@@ -2942,6 +2942,10 @@
         <value xml:lang="zh">评论</value>
         <value xml:lang="zh_TW">評論</value>
     </property>
+    <property key="WebtoolsLabelManagerLabelStats">
+        <value xml:lang="de">Label Statistiken</value>
+        <value xml:lang="en">Label Statistics</value>
+    </property>
     <property key="WebtoolsLabelManagerLocale">
         <value xml:lang="de">Locale</value>
         <value xml:lang="en">Locale</value>
@@ -2985,6 +2989,14 @@
         <value xml:lang="vi">Nhãn ${key} đã tồn tại ở tập tin ${fileName}</value>
         <value xml:lang="zh">在文件${fileName}中已经存在标签${key}</value>
         <value xml:lang="zh_TW">在文件${fileName}中已經存在標簽${key}</value>
+    </property>
+    <property key="WebtoolsLabelManagerNumLabels">
+        <value xml:lang="de">Anzahl Labels insgesamt</value>
+        <value xml:lang="en">Total Number of Labels</value>
+    </property>
+    <property key="WebtoolsLabelManagerNumLangs">
+        <value xml:lang="de">Anzahl verschiedene Sprachen</value>
+        <value xml:lang="en">Total Number of different Languages</value>
     </property>
     <property key="WebtoolsLabelManagerOnlyMissingTranslations">
         <value xml:lang="de">Nur fehlende Übersetzungen</value>

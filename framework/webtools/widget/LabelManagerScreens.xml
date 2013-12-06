@@ -126,4 +126,27 @@ under the License.
             </fail-widgets>
         </section>
     </screen>
+    
+    <screen name="LabelStats">
+        <section>
+            <condition>
+                <if-has-permission permission="LABEL_MANAGER_VIEW"/>
+            </condition>
+            <actions>
+                <set field="titleProperty" value="WebtoolsLabelManagerLabelStats"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/labelmanager/LabelStats.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/LabelStats.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <fail-widgets>
+                <label style="h3">${uiLabelMap.WebtoolsLabelManagerSecuryError}</label>
+            </fail-widgets>
+        </section>
+    </screen>
+    
 </screens>

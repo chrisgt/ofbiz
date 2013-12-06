@@ -38,6 +38,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.owasp.esapi.errors.EncodingException;
@@ -218,4 +219,38 @@ public class LabelManagerFactory {
         }
         return notEmptyLabels;
     }
+    
+    /**
+     * Counts available Labels for every Locale
+     *
+     * @return Map with num labels for every Locale
+     */
+    public Map<String, Integer> getLocalesCount() {
+        Set<String> availableLocales = getLocalesFound();
+        Map<String, Integer> localesCount = new TreeMap<String, Integer>();
+        for (String curLocale : availableLocales) {
+            Map<String, LabelInfo> labels = getLabels();
+            int i = 0;
+            for(LabelInfo labelInfo: labels.values()) {
+                if (UtilValidate.isNotEmpty(labelInfo.labelValues.get(curLocale))) {
+                    i++;
+                }
+            }
+            localesCount.put(curLocale, i);
+        }
+        return localesCount;
+    }
+
+    /**
+     * Returns number of label keys
+     *
+     * @return int with total number of label keys
+     */
+    public int getLabelsCount() {
+        int labelsCount = getLabels().size(); 
+        
+        return labelsCount;
+    }
+
+    
 }

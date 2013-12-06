@@ -49,6 +49,7 @@ under the License.
         <#if security.hasPermission("LABEL_MANAGER_VIEW", session)>
           <li><h3>${uiLabelMap.WebtoolsLabelManager}</h3></li>
           <li><a href="<@ofbizUrl>SearchLabels</@ofbizUrl>">${uiLabelMap.WebtoolsLabelManager}</a></li>
+          <li><a href="<@ofbizUrl>LabelStats</@ofbizUrl>">${uiLabelMap.WebtoolsLabelStatistics}</a></li>
         </#if>
         <#if security.hasPermission("ENTITY_MAINT", session)>
           <li><h3>${uiLabelMap.WebtoolsEntityEngineTools}</h3></li>

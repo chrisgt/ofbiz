@@ -504,7 +504,7 @@ public class DateTimeConverters implements ConverterLoader {
             }
             DateFormat df = null;
             if (UtilValidate.isEmpty(formatString)) {
-                df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, locale);
+                df = UtilDateTime.toDateTimeFormat(obj.contains("-") ? UtilDateTime.DATE_TIME_FORMAT : null, timeZone, locale);
             } else {
                 df = UtilDateTime.toDateTimeFormat(formatString, timeZone, locale);
             }
@@ -644,6 +644,10 @@ public class DateTimeConverters implements ConverterLoader {
             try {
                 return new java.sql.Timestamp(df.parse(str).getTime());
             } catch (ParseException e) {
+                // FIXME: This change needs to be reverted. The Timestamp format is
+                // defined by the JDBC specification. Passing an invalid format is an
+                // application error and the application needs to be fixed.
+                //
                 // before throwing an exception, try a generic format first
                 df = DateFormat.getDateTimeInstance();
                 if (timeZone != null) {

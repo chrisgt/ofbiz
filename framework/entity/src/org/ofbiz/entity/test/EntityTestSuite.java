@@ -273,7 +273,7 @@ public class EntityTestSuite extends EntityTestCase {
                         "primaryParentNodeId", GenericEntity.NULL_FIELD,
                         "description", "root");
         int level1;
-        for(level1 = 0; level1 < _level1max; level1++) {
+        for (level1 = 0; level1 < _level1max; level1++) {
             String nextSeqId = delegator.getNextSeqId("TestingNode");
             GenericValue v = delegator.create("TestingNode", "testingNodeId", nextSeqId,
                                     "primaryParentNodeId", root.get("testingNodeId"),
@@ -580,7 +580,7 @@ public class EntityTestSuite extends EntityTestCase {
         delegator.create(testValue);
         TransactionUtil.rollback(transBegin, null, null);
         GenericValue testValueOut = delegator.findOne("Testing", false, "testingId", "rollback-test");
-        assertEquals("Test that transaction rollback removes value: ", testValueOut, null);
+        assertEquals("Test that transaction rollback removes value: ", null, testValueOut);
     }
 
     /*

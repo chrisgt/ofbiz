@@ -23,8 +23,11 @@ import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import java.math.BigInteger;
 import java.security.cert.X509Certificate;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.ServiceLoader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -121,6 +124,10 @@ public class LoginWorker {
      * Gets (and creates if necessary) a key to be used for an external login parameter
      */
     public static String getExternalLoginKey(HttpServletRequest request) {
+        boolean externalLoginKeyEnabled = "true".equals(UtilProperties.getPropertyValue("security", "security.login.externalLoginKey.enabled", "true"));
+        if (!externalLoginKeyEnabled) {
+            return null;
+        }
         //Debug.logInfo("Running getExternalLoginKey, externalLoginKeys.size=" + externalLoginKeys.size(), module);
         GenericValue userLogin = (GenericValue) request.getAttribute("userLogin");
 
@@ -240,6 +247,56 @@ public class LoginWorker {
             }
         }
         return userLogin;
+    }
+
+    /** This WebEvent allows for java 'services' to hook into the login path.
+     * This method loads all instances of {@link LoginCheck}, and calls the
+     * {@link LoginCheck#associate} method.  The first implementation to return
+     * a non-null value gets that value returned to the caller.  Returning
+     * "none" will abort processing, while anything else gets looked up in
+     * outer view dispatch.  This event is called when the current request
+     * needs to have a validly logged in user; it is a wrapper around {@link
+     * #checkLogin}.
+     *
+     * @param request The HTTP request object for the current JSP or Servlet request.
+     * @param response The HTTP response object for the current JSP or Servlet request.
+     * @return String
+     */
+    public static String extensionCheckLogin(HttpServletRequest request, HttpServletResponse response) {
+        for (LoginCheck check: ServiceLoader.load(LoginCheck.class)) {
+            if (!check.isEnabled()) {
+                continue;
+            }
+            String result = check.associate(request, response);
+            if (result != null) {
+                return result;
+            }
+        }
+        return checkLogin(request, response);
+    }
+
+    /** This WebEvent allows for java 'services' to hook into the login path.
+     * This method loads all instances of {@link LoginCheck}, and calls the
+     * {@link LoginCheck#check} method.  The first implementation to return
+     * a non-null value gets that value returned to the caller.  Returning
+     * "none" will abort processing, while anything else gets looked up in
+     * outer view dispatch; for preprocessors, only "success" makes sense.
+     *
+     * @param request The HTTP request object for the current JSP or Servlet request.
+     * @param response The HTTP response object for the current JSP or Servlet request.
+     * @return String
+     */
+    public static String extensionConnectLogin(HttpServletRequest request, HttpServletResponse response) {
+        for (LoginCheck check: ServiceLoader.load(LoginCheck.class)) {
+            if (!check.isEnabled()) {
+                continue;
+            }
+            String result = check.check(request, response);
+            if (result != null) {
+                return result;
+            }
+        }
+        return "success";
     }
 
     /**
@@ -1003,33 +1060,68 @@ public class LoginWorker {
                 "Y".equalsIgnoreCase(userLogin.getString("hasLoggedOut")) : false);
     }
 
+    /**
+     * Returns <code>true</code> if the specified user is authorized to access the specified web application.
+     * @param info
+     * @param security
+     * @param userLogin
+     * @return <code>true</code> if the specified user is authorized to access the specified web application
+     */
+    public static boolean hasApplicationPermission(ComponentConfig.WebappInfo info, Security security, GenericValue userLogin) {
+        // New authorization attribute takes precedence.
+        String accessPermission = info.getAccessPermission();
+        if (!accessPermission.isEmpty()) {
+            return security.hasPermission(accessPermission, userLogin);
+        }
+        for (String permission: info.getBasePermission()) {
+            if (!"NONE".equals(permission) && !security.hasEntityPermission(permission, "_VIEW", userLogin)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static boolean hasBasePermission(GenericValue userLogin, HttpServletRequest request) {
         Security security = (Security) request.getAttribute("security");
         if (security != null) {
             ServletContext context = (ServletContext) request.getAttribute("servletContext");
             String serverId = (String) context.getAttribute("_serverId");
-            
             // get a context path from the request, if it is empty then assume it is the root mount point
             String contextPath = request.getContextPath();
             if (UtilValidate.isEmpty(contextPath)) {
                 contextPath = "/";
             }
-            
             ComponentConfig.WebappInfo info = ComponentConfig.getWebAppInfo(serverId, contextPath);
             if (info != null) {
-                for (String permission: info.getBasePermission()) {
-                    if (!"NONE".equals(permission) && !security.hasEntityPermission(permission, "_VIEW", userLogin)) {
-                        return false;
-                    }
-                }
+                return hasApplicationPermission(info, security, userLogin);
             } else {
                 Debug.logInfo("No webapp configuration found for : " + serverId + " / " + contextPath, module);
             }
         } else {
             Debug.logWarning("Received a null Security object from HttpServletRequest", module);
         }
-
         return true;
+    }
+
+    /**
+     * Returns a <code>Collection</code> of <code>WebappInfo</code> instances that the specified
+     * user is authorized to access.
+     * @param security
+     * @param userLogin
+     * @param serverName
+     * @param menuName
+     * @return A <code>Collection</code> <code>WebappInfo</code> instances that the specified
+     * user is authorized to access
+     */
+    public static Collection<ComponentConfig.WebappInfo> getAppBarWebInfos(Security security, GenericValue userLogin, String serverName, String menuName) {
+        Collection<ComponentConfig.WebappInfo> allInfos = ComponentConfig.getAppBarWebInfos(serverName, menuName);
+        Collection<ComponentConfig.WebappInfo> allowedInfos = new ArrayList<ComponentConfig.WebappInfo>(allInfos.size());
+        for (ComponentConfig.WebappInfo info : allInfos) {
+            if (hasApplicationPermission(info, security, userLogin)) {
+                allowedInfos.add(info);
+            }
+        }
+        return allowedInfos;
     }
 
     public static Map<String, Object> getUserLoginSession(GenericValue userLogin) {

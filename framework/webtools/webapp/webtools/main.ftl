@@ -41,10 +41,9 @@ under the License.
         <li><a href="<@ofbizUrl>ViewComponents</@ofbizUrl>">${uiLabelMap.WebtoolsViewComponents}</a></li>
         <#if security.hasPermission("ARTIFACT_INFO_VIEW", session)>
           <li><h3>${uiLabelMap.WebtoolsGeneralArtifactInfoTools}</h3></li>
-          <li><a href="<@ofbizUrl>ArtifactInfo</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsArtifactInfo}</a></li>
+          <li><a href="<@ofbizUrl>ViewComponents</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsArtifactInfo}</a></li>
           <li><a href="<@ofbizUrl>entityref</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsEntityReference} - ${uiLabelMap.WebtoolsEntityReferenceInteractiveVersion}</a></li>
           <li><a href="<@ofbizUrl>ServiceList</@ofbizUrl>">${uiLabelMap.WebtoolsServiceReference}</a></li>
-          <li><a href="<@ofbizUrl>XsdToJava</@ofbizUrl>">${uiLabelMap.WebtoolsXsdToJava}</a></li>
         </#if>
         <#if security.hasPermission("LABEL_MANAGER_VIEW", session)>
           <li><h3>${uiLabelMap.WebtoolsLabelManager}</h3></li>

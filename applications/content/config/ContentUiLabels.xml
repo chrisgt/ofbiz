@@ -1820,11 +1820,11 @@
     </property>
     <property key="ContentIndexAll">
         <value xml:lang="ar">دلل على كل المحتوى تحت</value>
-        <value xml:lang="da">Indeks alt indhold under</value>
+        <value xml:lang="da">Indeks alt indhold under:</value>
         <value xml:lang="de">Alle Inhalte indexieren unter</value>
         <value xml:lang="en">Index All Content Under</value>
         <value xml:lang="es">Indice de todo el contenido</value>
-        <value xml:lang="fr">Indexez tout le contenu dessous</value>
+        <value xml:lang="fr">Indexer tout le contenu sous :</value>
         <value xml:lang="it">Indicizza Tutti i Contenuti Sotto</value>
         <value xml:lang="ja">すべてのコンテンツの索引を作成</value>
         <value xml:lang="pt">Indexar todo o conteúdo sob</value>
@@ -3389,17 +3389,6 @@
         <value xml:lang="zh">模板</value>
         <value xml:lang="zh_TW">範本</value>
     </property>
-    <property key="ContentTestPermission">
-        <value xml:lang="da">Test tilladelse</value>
-        <value xml:lang="en">Test Permission</value>
-        <value xml:lang="fr">Tester l'autorisation</value>
-        <value xml:lang="it">Test Permesso</value>
-        <value xml:lang="ja">権限をテスト</value>
-        <value xml:lang="pt">Permissão de teste</value>
-        <value xml:lang="vi">Kiểm tra quyền</value>
-        <value xml:lang="zh">测试权限</value>
-        <value xml:lang="zh_TW">測試權限</value>
-    </property>
     <property key="ContentText">
         <value xml:lang="ar">نص</value>
         <value xml:lang="da">Tekst</value>
@@ -3745,7 +3734,7 @@
     </property>
     <property key="ErrorLoadingContent">
         <value xml:lang="de">Ein Fehler beim Laden des Inhaltes ist aufgetrete!</value>
-        <value xml:lang="en">An error occured loading content!</value>
+        <value xml:lang="en">An error occurred loading content!</value>
         <value xml:lang="fr">Erreur dans le chargement du document !</value>
         <value xml:lang="ja">コンテンツのロード中にエラーが発生しました!</value>
         <value xml:lang="pt">Um erro ocorreu ao carregar conteúdo!</value>

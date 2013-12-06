@@ -156,7 +156,7 @@ public class GenerateContainer implements Container {
                     throw new ContainerException("Error in Geronimo deployment, please check the log");
                 }
 
-            for(int inst = 0; inst <= instancesNumber; inst++) {
+            for (int inst = 0; inst <= instancesNumber; inst++) {
                 instanceNumber = (inst == 0 ? "" : inst).toString();
                 GenerateGeronimoDeployment geronimoDeployment = new GenerateGeronimoDeployment();
                 List<String> classpathJars = geronimoDeployment.generate(args[0], geronimoHostHome, instanceNumber);

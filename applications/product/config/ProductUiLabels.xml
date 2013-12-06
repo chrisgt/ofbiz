@@ -221,13 +221,6 @@
         <value xml:lang="vi">Đơn vị tính của sản phẩm trong kho chứa ${lookupPKMap.inventoryItemId} không thể bị cấm.</value>
         <value xml:lang="zh">库存明细 ${lookupPKMap.inventoryItemId} 的单位成本不能是负的。</value>
     </property>
-    <property key="FacilityInventoryHistoryReport">
-        <value xml:lang="en">Inventory History Report</value>
-        <value xml:lang="it">Report storia inventario</value>
-        <value xml:lang="ja">在庫履歴レポート</value>
-        <value xml:lang="vi">Báo cáo lịch sử kho (Inventory)</value>
-        <value xml:lang="zh">库存历史记录报告</value>
-    </property>
     <property key="FacilityMultipleLocations">
         <value xml:lang="en">Multiple Locations</value>
         <value xml:lang="it">Posizioni multiple</value>
@@ -2660,8 +2653,8 @@
         <value xml:lang="zh_CN">特殊说明</value>
         <value xml:lang="zh_TW">特別說明</value>
     </property>
-    <property key="FacilityThereIsProblemOccuredInPaymentCapture">
-        <value xml:lang="en">There is problem occured in payment capture, shipment is still in PICKED status</value>
+    <property key="FacilityThereIsProblemOccurredInPaymentCapture">
+        <value xml:lang="en">A problem occurred in payment capture, shipment is still in PICKED status</value>
         <value xml:lang="it">C'è un problema successo nella cattura del pagamento, spedizione è ancora in stato PRELEVATA</value>
         <value xml:lang="ja">支払キャプチャ時に問題があります、発送はまだピッキングステータスです</value>
         <value xml:lang="vi">Có lỗi xảy ra trong quá trình thanh toán, nên Chuyển vận vẫn ở trạng thái 'Đã Xử lý đặt hàng (Pick)'</value>
@@ -3289,16 +3282,16 @@
         <value xml:lang="zh_TW">取消數量</value>
     </property>
     <property key="FormFieldTitle_canclAutmExtTime">
-        <value xml:lang="en">The time period (before the end of the thruedate) after which the automatic extension of the subscription will be executed.</value>
-        <value xml:lang="fr">Durée (avant la date de fin) après laquelle l'abonn. sera automatiquement étendu</value>
-        <value xml:lang="it">Il periodo di tempo (prima della data di termine) dopo che l'estensione automatica dell'abbonamento verrà eseguita.</value>
+        <value xml:lang="en">The time period (before the end of the thrudate) after which the automatic extension of the subscription will be executed</value>
+        <value xml:lang="fr">Durée durant laquelle l'abonnement sera automatiquement étendu (avant la date de fin)</value>
+        <value xml:lang="it">Il periodo di tempo (prima della data di termine) dopo che l'estensione automatica dell'abbonamento verrà eseguita</value>
         <value xml:lang="ja">(終了日前に)申込を自動継続する期間</value>
-        <value xml:lang="vi">Kỳ thời gian sau đó (trước khi kết thúc Đến ngày) sẽ được hệ thống thực hiện tự động mở rộng của Đăng ký.</value>
+        <value xml:lang="vi">Kỳ thời gian sau đó (trước khi kết thúc Đến ngày) sẽ được hệ thống thực hiện tự động mở rộng của Đăng ký</value>
         <value xml:lang="zh">在要执行的订阅自动延期后的时间段(在结束日期结束前)</value>
         <value xml:lang="zh_TW">在要執行的訂閱自動延期後的時間段(在結束日期結束前)</value>
     </property>
     <property key="FormFieldTitle_canclAutmExtTimeUomId">
-        <value xml:lang="en">Unit Of Measure used for the automatic extension of the subscription.</value>
+        <value xml:lang="en">Unit Of Measure used for the automatic extension of the subscription</value>
         <value xml:lang="fr">Unité de temps utilisée pour l'extension automatique de l'abonnement</value>
         <value xml:lang="ja">自動継続する期間の単位ID</value>
         <value xml:lang="vi">Đơn vị tính sử dụng cho Tự động mở rộng của Đăng ký</value>
